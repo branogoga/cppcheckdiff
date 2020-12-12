@@ -25,9 +25,17 @@ def getNumberOfErrors(errors):
     return numberOfErrors
 
 def isSame(error1, error2):
+    if error1 is None:
+        print("error1 is None")
+        return False
+    if error2 is None:
+        print("error2 is None")
+        return False
     location1 = error1.find('location')
     location2 = error2.find('location')
-    return (error1.attrib['id'] == error2.attrib['id'] and error1.attrib['verbose'] == error2.attrib['verbose'] and location1.attrib['file'] == location2.attrib['file'])
+    if location1 is not None and location2 is not None and location1.attrib['file'] != location2.attrib['file']:
+        return False
+    return (error1.attrib['id'] == error2.attrib['id'] and error1.attrib['verbose'] == error2.attrib['verbose'])
 
 def findError(errors, searchedError):
     for error in errors:
